@@ -39,7 +39,7 @@ patch.aulは**頻繁に更新していて、かつプラグインはとても素
                         "releases":  "https://api.github.com/repos/ePi5131/patch.aul/releases/latest",
                         "tag_name":  "r20",
                         "update_block":  false,
-                        "copy_folder":  "../",
+                        "copy_folder":  "..\/",
                         "copy_file":  ["patch.aul"]
                     }
                 ]
@@ -97,9 +97,9 @@ patch.aulは**頻繁に更新していて、かつプラグインはとても素
 - 不具合が発生した際などにtrueにすると良いです
     - 不具合が直った後falseに戻すのを忘れないようにしましょう
 
-**"copy_folder":  "../"**
+**"copy_folder":  "..\/"**
 - スクリプトのインストール先のパスです。
-- 必ず最後に"/"(スラッシュ)を入れてください
+- 必ず最後に"\/"(エスケープしたスラッシュ)を入れてください
     - 入れないと大変なことになります
 - patch.aulはaviutl.exeと同じパスに置くべきらしいので、このパスになっています
 - 普通のプラグインとかは"../plugins/"とかがいいんじゃないでしょうか
