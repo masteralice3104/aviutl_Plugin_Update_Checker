@@ -21,7 +21,14 @@
                        "tag_name":  "0.0.1",
                        "update_block":  false,
                        "copy_folder":  "..\\",
-                       "copy_file":  "aviutl_Plugin_Update_Checker\\check.json aviutl_Plugin_Update_Checker\\LICENSE aviutl_Plugin_Update_Checker\\main.ps1 aviutl_Plugin_Update_Checker\\readme.md aviutl_Plugin_Update_Checker\\!_update_checker.bat"
+                       "copy_file":  ["aviutl_Plugin_Update_Checker\\check.json",
+                        "aviutl_Plugin_Update_Checker\\LICENSE",
+                        "aviutl_Plugin_Update_Checker\\main.ps1",
+                        "aviutl_Plugin_Update_Checker\\readme.md",
+                        "aviutl_Plugin_Update_Checker\\!_update_checker.bat"
+                    ]
+
+                         
                    }
                ]
 }
