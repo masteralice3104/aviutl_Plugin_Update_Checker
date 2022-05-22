@@ -24,7 +24,7 @@ patch.aulは**頻繁に更新していて、かつプラグインはとても素
 
 ## 設定の仕方：check.jsonの仕様
 
-デフォルトのcheck.jsonは以下のとおりです
+デフォルトのcheck.jsonを簡略化したものは以下のとおりです
 
     {
         "end_aviutl":  true,
