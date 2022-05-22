@@ -1,0 +1,9 @@
+{
+    "ver":1,
+    "end_aviutl":  true,
+    "aviutl_path":  "../aviutl.exe",
+    "dialog_notview":   -1,
+    "wait_sec":  2,
+    "temp_dir":  "./temp/",
+    "temp_zip":  "temp.zip"
+}

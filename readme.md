@@ -22,16 +22,55 @@ patch.aulは**頻繁に更新していて、かつプラグインはとても素
 ## ほかの機能
 実はGithubのRelease/latestで公開されているプラグインであれば何でもいけます(下記参照)
 
-## 設定の仕方：check.jsonの仕様
+## 注意事項
+間違ってもmain.ps1を直接開かないようにしてください
 
-デフォルトのcheck.jsonを簡略化したものは以下のとおりです
+アップデート処理が正常に走らずに起動しなくなることがあります
+
+
+## このソフト自体の設定の仕方：setting.jsonの仕様
 
     {
         "end_aviutl":  true,
         "aviutl_path":  "../aviutl.exe",
+        "dialog_notview":   false,
         "wait_sec":  2,
         "temp_dir":  "./temp/",
-        "temp_zip":  "temp.zip",
+        "temp_zip":  "temp.zip"
+    }
+
+**"end_aviutl":  true**
+- 終了時にAviutlを起動する設定です
+- trueで起動、falseで起動しない設定になります
+
+
+**"aviutl_path":  "../aviutl.exe"**
+- "end_aviutl"で起動する際のAviutlのパスを設定します
+
+**"dialog_notview":   -1**
+- 最後に出る「処理が終了しました」ダイアログが出るかの設定
+- -1　→ 未設定
+- 0 → ダイアログを出す
+- 1 → ダイアログを出さない
+
+**"wait_sec":  2**
+- "end_aviutl": falseの時、終了時にかかるウエイトの設定です
+- 単位は秒です
+
+**"temp_dir":  "./temp/"**
+- テンポラリフォルダのパスです
+- このフォルダは自動生成・削除されるためこのパスに該当するフォルダ・ファイルは作成しないでください
+
+**"temp_zip":  "temp.zip"**
+- githubからダウンロードした際の保存パスです
+- このファイルは自動生成・上書き・削除されるためこのパスに該当するファイルは作成しないでください。
+
+
+
+## 更新を確認するプラグインの設定の仕方：check.jsonの仕様
+デフォルトのcheck.jsonを簡略化したものは以下のとおりです
+    {
+
         "plugin":  [
                     {
                         "name":  "patch.aul",
@@ -47,26 +86,6 @@ patch.aulは**頻繁に更新していて、かつプラグインはとても素
     }
     
 
-
-**"end_aviutl":  true**
-- 終了時にAviutlを起動する設定です
-- trueで起動、falseで起動しない設定になります
-
-
-**"aviutl_path":  "../aviutl.exe"**
-- "end_aviutl"で起動する際のAviutlのパスを設定します
-
-**"wait_sec":  2**
-- "end_aviutl": falseの時、終了時にかかるウエイトの設定です
-- 単位は秒です
-
-**"temp_dir":  "./temp/"**
-- テンポラリフォルダのパスです
-- このフォルダは自動生成・削除されるためこのパスに該当するフォルダ・ファイルは作成しないでください
-
-**"temp_zip":  "temp.zip"**
-- githubからダウンロードした際の保存パスです
-- このファイルは自動生成・上書き・削除されるためこのパスに該当するファイルは作成しないでください。
 
 
 **"plugin":**

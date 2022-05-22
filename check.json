@@ -1,15 +1,10 @@
 ﻿{
-    "end_aviutl":  true,
-    "aviutl_path":  "../aviutl.exe",
-    "wait_sec":  2,
-    "temp_dir":  "./temp/",
-    "temp_zip":  "temp.zip",
     "plugin":  [
                    {
                        "name":  "patch.aul",
                        "use":  true,
-                       "releases":  "https://api.github.com/repos/ePi5131/patch.aul/releases/latest",
-                       "tag_name":  "r24",
+                       "releases":  "https://github.com/ePi5131/patch.aul/releases/latest",
+                       "tag_name":  null,
                        "update_block":  false,
                        "copy_folder":  "..\/",
                        "copy_file":  "patch.aul"
@@ -17,18 +12,13 @@
                    {
                        "name":  "Plugin_Update_Checker",
                        "use":  true,
-                       "releases":  "https://api.github.com/repos/masteralice3104/aviutl_Plugin_Update_Checker/releases/latest",
-                       "tag_name":  "0.0.1",
+                       "releases":  "https://github.com/masteralice3104/aviutl_Plugin_Update_Checker/releases/latest",
+                       "tag_name":  null,
                        "update_block":  false,
                        "copy_folder":  "..\/",
-                       "copy_file":  ["aviutl_Plugin_Update_Checker\/check.json",
-                        "aviutl_Plugin_Update_Checker\/LICENSE",
-                        "aviutl_Plugin_Update_Checker\/main.ps1",
-                        "aviutl_Plugin_Update_Checker\/readme.md",
-                        "aviutl_Plugin_Update_Checker\/!_update_checker.bat"
-                    ]
-
-                         
+                       "copy_file":  [
+                                         ".\/aviutl_Plugin_Update_Checker\/*"
+                                     ]
                    }
                ]
 }
