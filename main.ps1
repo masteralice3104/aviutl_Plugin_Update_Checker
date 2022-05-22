@@ -90,7 +90,7 @@ foreach ($plugin_object in $JsonContent.plugin) {
 
     # アップデートしたらjsonを書き換える
     $plugin_object.tag_name = $HTTPContent.tag_name
-    ConvertTo-Json $JsonContent | Out-File "./check.json" -Encoding utf8
+    ConvertTo-Json -InputObject $JsonContent -Depth 32 | Out-File "./check.json" -Encoding utf8
 
     # updatedに追加
     $updated += $plugin_object.name
@@ -113,12 +113,12 @@ if ($JsonContent.end_aviutl -eq "True"){
     $dialog = "処理が終了しました`r`n"
 
     if ($updated){
-        $dialog += "アップデートはありませんでした"
-    }else{
         $dialog += "アップデートされたプラグイン`r`n"
         foreach ($updated_plugin in $updated){
             $dialog +="　"+$updated_plugin+"`r`n"
         }
+    }else{
+        $dialog += "アップデートはありませんでした"
     }
 
     [System.Windows.Forms.MessageBox]::Show($dialog, "Plugin Update Checker")
