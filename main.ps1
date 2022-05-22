@@ -112,7 +112,7 @@ Add-Type -Assembly System.Windows.Forms
 if ($JsonContent.end_aviutl -eq "True"){
     $dialog = "処理が終了しました`r`n"
 
-    if ($dialog){
+    if ($updated){
         $dialog += "アップデートはありませんでした"
     }else{
         $dialog += "アップデートされたプラグイン`r`n"
