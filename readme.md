@@ -13,7 +13,7 @@ patch.aulは**頻繁に更新していて、かつプラグインはとても素
 アップデート終了後にはAviutlを自動で起動する設定(変更可能)になっているので、Aviutlのショートカットを置き換えると起動時に毎回確認できるようになります。
 
 ## 導入方法
-1. update_checkerフォルダを"aviutl.exeと同じフォルダ"に入れる
+1. aviutl_Plugin_Update_Checkerフォルダを"aviutl.exeと同じフォルダ"に入れる
 1. !_update_checker.batを開く
 
 これだけでpatch.aulのアップデートがされます！
