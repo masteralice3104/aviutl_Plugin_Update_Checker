@@ -1,0 +1,18 @@
+﻿{
+    "end_aviutl":  true,
+    "aviutl_path":  "../aviutl.exe",
+    "wait_sec":  2,
+    "temp_dir":  "./temp/",
+    "temp_zip":  "temp.zip",
+    "plugin":  [
+                   {
+                       "name":  "patch.aul",
+                       "use":   true,
+                       "releases":  "https://api.github.com/repos/ePi5131/patch.aul/releases/latest",
+                       "tag_name":  "r20",
+                       "update_block":  false,
+                       "copy_folder":  "../",
+                       "copy_file":  ["patch.aul"]
+                   }
+               ]
+}
