@@ -1,4 +1,5 @@
 ﻿{
+    "ver":1,
     "plugin":  [
                    {
                        "name":  "patch.aul",

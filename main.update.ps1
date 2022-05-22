@@ -83,6 +83,8 @@ function Download($plugin_object,$URL,$temp_zipfile,$temp_dir){
     }
 }
 
+
+
 # JSONを読み込む
 $JsonContent = (Get-Content -Path "./check.json" | ConvertFrom-Json)
 $SettingJson = (Get-Content -Path "./setting.json" | ConvertFrom-Json)
@@ -213,7 +215,7 @@ if ($SettingJson.end_aviutl -eq "True"){
             }
         }
     }
-    
+
     ConvertTo-Json -InputObject $SettingJson -Depth 32 | Out-File "./setting.json" -Encoding utf8
 
     Start-Sleep -s [int]$JsonContent.wait_sec
