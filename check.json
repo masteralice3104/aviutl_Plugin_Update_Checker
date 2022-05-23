@@ -1,10 +1,10 @@
 ﻿{
-    "ver":3,
+    "ver":4,
     "plugin":  [
                    {
                        "name":  "patch.aul",
                        "use":  true,
-                       "releases":  "https://github.com/ePi5131/patch.aul/releases/latest",
+                       "link":  "https://github.com/ePi5131/patch.aul",
                        "tag_name":  null,
                        "update_block":  false,
                        "copy_folder":  "..\\",
@@ -13,8 +13,7 @@
                    {
                        "name":  "Plugin_Update_Checker",
                        "use":  true,
-                       "tags":"https://github.com/masteralice3104/aviutl_Plugin_Update_Checker/tags",
-                       "releases":  "https://github.com/masteralice3104/aviutl_Plugin_Update_Checker/releases/latest",
+                       "link":"https://github.com/masteralice3104/aviutl_Plugin_Update_Checker",
                        "tag_name":  null,
                        "update_block":  false,
                        "copy_folder":  "..\\",

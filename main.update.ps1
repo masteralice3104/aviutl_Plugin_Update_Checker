@@ -31,14 +31,15 @@ function Temp_delete(){
     }
 
 }
-function TagGet($URL){
+
+
+#releases/latestからタグ名を探し出す関数
+function TagGet($URL)
+{ 
+    
 
     $Obj = Invoke-Webrequest $URL
     
-    # outerText           : r24
-    # tagName             : A
-    # class               : Link--muted
-    #これを探し出す
     foreach($Link in $Obj.Links){
         if($Link.class -eq "Link--muted" ){
             if(!$Link."data-hovercard-type"){
@@ -51,6 +52,9 @@ function TagGet($URL){
     return $null
 }
 
+# tagsページから
+# 一番上のhttps://github.com/～/～/releases/tag/タグ名
+# ページURLを検索する関数
 function Tags_URL($TagsPageURL){
     $Obj = Invoke-Webrequest $TagsPageURL
     
@@ -69,6 +73,8 @@ function Tags_URL($TagsPageURL){
     return $null
     
 }
+
+
 function TagGet2($URL){
 
     $releaseURL = Tags_URL -TagsPageURL $URL
@@ -86,6 +92,9 @@ function TagGet2($URL){
 
 }
 
+# tags/タグ名 もしくは release/latest のページの
+# Assetsの一番上のファイルのURLを探し出す関数
+# なおSource codeは排除する
 function DLURLGet($URL){
     
     $Obj = Invoke-Webrequest $URL
@@ -106,7 +115,7 @@ function Download($plugin_object,$URL,$temp_zipfile,$temp_dir){
     
     # https://github.com/masteralice3104/aviutl_Plugin_Update_Checker/issues/3
     # ありがとうございます
-        
+
     # アップデートがあるときは実行ファイルをtempに保存
     Invoke-WebRequest -Uri (DLURLGet -URL $URL) -OutFile $temp_zipfile
 
@@ -163,20 +172,28 @@ foreach ($plugin_object in $JsonContent.plugin) {
         continue
     }
 
+    # URLを作る
+    
+    # tags
+    $URL_tags = $JsonContent.link + "/tags"
+
+    # releases/latest
+    $URL_latest = $JsonContent.link + "/releases/latest"
+
+
     
     # https://github.com/masteralice3104/aviutl_Plugin_Update_Checker/issues/3
     # ありがとうございます
     $DLpageURL = ""
     $Latest_tag_name = ""
     if($plugin_object.type -eq "tags"){
-        $Latest_tag_list = TagGet2 -URL $plugin_object.tags
+        $Latest_tag_list = TagGet2 -URL $URL_tags
         $Latest_tag_name =$Latest_tag_list[1]
-        $DLpageURL = Tags_URL -TagsPageURL $plugin_object.tags
+        $DLpageURL = Tags_URL -TagsPageURL $URL_tags
     }else{
-        $Latest_tag_name = TagGet -URL $plugin_object.releases
-        $DLpageURL = $plugin_object.releases
+        $Latest_tag_name = TagGet -URL $URL_latest
+        $DLpageURL = $URL_latest
     }
-
 
 
 
@@ -194,17 +211,25 @@ foreach ($plugin_object in $JsonContent.plugin) {
 
     # 例外処理
     # 自身をアップデートする前にかならずjsonのバックアップをとる
-    if ($plugin_object.releases -like $this_app){
+    if ($URL_latest -like $this_app){
         ConvertTo-Json -InputObject $JsonContent -Depth 32 | Out-File "./check.json.bak" -Encoding utf8
         ConvertTo-Json -InputObject $SettingJson -Depth 32 | Out-File "./setting.json.bak" -Encoding utf8
     }
     
     Download -plugin_object $plugin_object -URL $DLpageURL -temp_zipfile $temp_zipfile -temp_dir $temp_dir
     
- 
-    # アップデートしたらjsonを書き換える
-    $plugin_object.tag_name = $Latest_tag_name
-    ConvertTo-Json -InputObject $JsonContent -Depth 32 | Out-File "./check.json" -Encoding utf8
+    if ($URL_latest -like $this_app){
+        # 例外処理
+        # 自身をアップデートした際にはjsoncheck.ps1を起動する
+        .\jsoncheck.ps1
+    }else{
+        # 自身のアプデではない場合は
+        # アップデートしたらjsonを書き換える
+        $plugin_object.tag_name = $Latest_tag_name
+        ConvertTo-Json -InputObject $JsonContent -Depth 32 | Out-File "./check.json" -Encoding utf8
+    }
+
+
 
     # updatedに追加
     $updated += $plugin_object.name

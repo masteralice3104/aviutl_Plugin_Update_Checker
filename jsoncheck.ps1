@@ -8,7 +8,7 @@
 Add-Type -Assembly System.Windows.Forms
 
 # バージョン
-$Jsonver = 3
+$Jsonver = 4
 
 # タイトル
 Write-Output ("Plugin Update Checker ver" + $Jsonver)
