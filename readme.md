@@ -75,7 +75,7 @@ patch.aulは**頻繁に更新していて、かつプラグインはとても素
                     {
                         "name":  "patch.aul",
                         "use":   true,
-                        "releases":  "https://api.github.com/repos/ePi5131/patch.aul/releases/latest",
+                        "releases":  "https://github.com/ePi5131/patch.aul/releases/latest",
                         "tag_name":  "r20",
                         "update_block":  false,
                         "copy_folder":  "..\/",
@@ -90,7 +90,7 @@ patch.aulは**頻繁に更新していて、かつプラグインはとても素
 
 **"plugin":**
 - プラグインに関する配列型です
-- patch.aulの想定しかしていませんが、他のプラグインでも以下の条件に当てはまれば同様に設定することで自動アップデート可能となります
+- patch.aulの想定しかしていませんが、他のプラグインでも以下の条件に当てはまれば同様に設定することでおそらく自動アップデート可能となります
     - Github
     - release/latestの公開をしている
     - pre-releaseではない 
@@ -102,9 +102,11 @@ patch.aulは**頻繁に更新していて、かつプラグインはとても素
 - 使っているというフラグです
 - trueでなければ更新のチェックすらされません
 
-**"releases":  "https://api.github.com/repos/ePi5131/patch.aul/releases/latest"**
-- releasesのapiのURLです。
-- "https://api.github.com/repos/～～～～/～～～～/releases/latest"の形式であれば読み込みに行けます
+**"releases":  "https://github.com/ePi5131/patch.aul/releases/latest"**
+- releasesのURLです。
+- "https://github.com/～～～～/～～～～/releases/latest"の形式であれば読み込みに行けます
+- apiのレート制限にひっかかるため、apiではなくHTMLを読みに行くようにしました
+- ~~～～/tag/＊＊＊＊で終わるURLでも読めるはずですがアップデートされないのでやめましょう~~
 
 **"tag_name":  "r20"**
 - タグ名です
@@ -118,8 +120,9 @@ patch.aulは**頻繁に更新していて、かつプラグインはとても素
 
 **"copy_folder":  "..\/"**
 - スクリプトのインストール先のパスです。
-- 必ず最後に"\/"(エスケープしたスラッシュ)を入れてください
+- 必ず最後に"/"(スラッシュ)を入れてください
     - 入れないと大変なことになります
+    - エスケープは意味がなさそうです
 - patch.aulはaviutl.exeと同じパスに置くべきらしいので、このパスになっています
 - 普通のプラグインとかは"../plugins/"とかがいいんじゃないでしょうか
 
