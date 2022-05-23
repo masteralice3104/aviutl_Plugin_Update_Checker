@@ -1,9 +1,10 @@
 {
-    "ver":2,
+    "ver":3,
     "end_aviutl":  true,
-    "aviutl_path":  "../aviutl.exe",
+    "aviutl_path":  "..\\aviutl.exe",
     "dialog_notview":   -1,
     "wait_sec":  2,
-    "temp_dir":  "./temp/",
-    "temp_zip":  "temp.zip"
+    "temp_dir":  ".\\temp\\",
+    "temp_zip":  "temp.zip",
+    "setting_noti_dialog": true
 }

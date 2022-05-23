@@ -1,5 +1,6 @@
-﻿$ErrorActionPreference = "silentlycontinue"
-
+﻿# アセンブリ
+Add-Type -Assembly System.Windows.Forms
+Add-Type -AssemblyName Microsoft.VisualBasic
 
 # テンポラリフォルダとかを削除する関数
 function Temp_delete(){
@@ -42,6 +43,40 @@ function TagGet($URL){
     }
     return $null
 }
+
+function Tags_URL($TagsPageURL){
+    $Obj = Invoke-Webrequest $TagsPageURL
+    
+    # outerText           : r24
+    # tagName             : A
+    # class               : Link--muted
+    #これを探し出す
+    foreach($Link in $Obj.Links){
+        if($Link.class -eq "Link--muted" ){
+            if($Link.innerText -like "*Downloads*"){
+                $hrefURL = "https://github.com"+$Link.href
+                return $hrefURL
+            }
+        }
+    }
+    return $null
+    
+}
+function TagGet2($URL){
+
+    $releaseURL = Tags_URL -TagsPageURL $URL
+
+    $releaseURL
+    if (!$releaseURL){
+        return $null
+    }
+    
+    $Tag = [regex]::Matches($releaseURL,"tag/[A-Za-z0-9._/@{}]*")
+    $Tag = [Microsoft.VisualBasic.Strings]::Right($Tag,$Tag.Length-4)
+    return $Tag
+
+}
+
 function DLURLGet($URL){
     
     $Obj = Invoke-Webrequest $URL
@@ -73,7 +108,7 @@ function Download($plugin_object,$URL,$temp_zipfile,$temp_dir){
         $copy_moto = ($temp_dir + $file)
 
         # コピー先ファイルパス
-        $copy_saki = ($plugin_object.copy_folder + $file)
+        $copy_saki = ($plugin_object.copy_folder+ $file).Replace('*','')
 
         # 通知する
         Write-Output ("コピーします "+$copy_moto +" -> "+ $copy_saki)
@@ -93,6 +128,7 @@ $SettingJson = (Get-Content -Path "./setting.json" | ConvertFrom-Json)
 $temp_zipfile = $SettingJson.temp_zip
 $temp_dir = $SettingJson.temp_dir
 $updated = @()
+$this_app = "https://github.com/masteralice3104/aviutl_Plugin_Update_Checker/*"
 
 # 作業用tempフォルダを作る
 Temp_delete
@@ -117,9 +153,23 @@ foreach ($plugin_object in $JsonContent.plugin) {
         continue
     }
 
-    # githubのAPIを叩きに行く
+    
     # latest読めばいいよね！
-    $Latest_tag_name = TagGet($plugin_object.releases)
+    $DLpageURL = ""
+    $Latest_tag_name = ""
+    if($plugin_object.type){
+        if($plugin_object.type -eq "releases"){
+            $Latest_tag_name = TagGet -URL $plugin_object.releases
+            $DLpageURL = $plugin_object.releases
+        }
+        if($plugin_object.type -eq "tags"){
+            $Latest_tag_name = TagGet2 -URL $plugin_object.tags
+            $DLpageURL =Tags_URL -TagsPageURL $plugin_object.tags
+        }
+    }else{
+        $Latest_tag_name = TagGet -URL $plugin_object.releases
+        $DLpageURL = $plugin_object.releases
+    }
 
     # tag_nameを比較する
     if ($Latest_tag_name -eq $plugin_object.tag_name){
@@ -131,7 +181,14 @@ foreach ($plugin_object in $JsonContent.plugin) {
     Write-Output ($plugin_object.name + "のアップデートが見つかりました`r`n(現在:"+$plugin_object.tag_name+" -> 最新:"+$Latest_tag_name+")")
     
 
-    Download -plugin_object $plugin_object -URL $plugin_object.releases -temp_zipfile $temp_zipfile -temp_dir $temp_dir
+    # 例外処理
+    # 自身をアップデートする前にかならずjsonのバックアップをとる
+    if ($plugin_object.releases -like $this_app){
+        ConvertTo-Json -InputObject $JsonContent -Depth 32 | Out-File "./check.json.bak" -Encoding utf8
+        ConvertTo-Json -InputObject $SettingJson -Depth 32 | Out-File "./setting.json.bak" -Encoding utf8
+    }
+    
+    Download -plugin_object $plugin_object -URL $DLpageURL -temp_zipfile $temp_zipfile -temp_dir $temp_dir
     
  
     # アップデートしたらjsonを書き換える
@@ -154,7 +211,7 @@ Temp_delete
 
 
 
-Add-Type -Assembly System.Windows.Forms
+
 if ($SettingJson.end_aviutl -eq "True"){
     $dialog = "処理が終了しました`r`n"
 
