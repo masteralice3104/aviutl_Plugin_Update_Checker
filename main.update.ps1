@@ -168,13 +168,15 @@ foreach ($plugin_object in $JsonContent.plugin) {
     if($plugin_object.type -eq "releases"){
         $Latest_tag_name = TagGet -URL $plugin_object.releases
         $DLpageURL = $plugin_object.releases
-    }elseif($plugin_object.type -eq "tags"){
-        $Latest_tag_list = TagGet2 -URL $plugin_object.tags
-        $Latest_tag_name =$Latest_tag_list[1]
-        $DLpageURL = Tags_URL -TagsPageURL $plugin_object.tags
     }else{
-        $Latest_tag_name = TagGet -URL $plugin_object.releases
-        $DLpageURL = $plugin_object.releases
+        if($plugin_object.type -eq "tags"){
+            $Latest_tag_list = TagGet2 -URL $plugin_object.tags
+            $Latest_tag_name =$Latest_tag_list[1]
+            $DLpageURL = Tags_URL -TagsPageURL $plugin_object.tags
+        }else{
+            $Latest_tag_name = TagGet -URL $plugin_object.releases
+            $DLpageURL = $plugin_object.releases
+        }
     }
 
     # tag_nameを比較する
