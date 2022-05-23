@@ -104,9 +104,11 @@ function DLURLGet($URL){
 
 function Download($plugin_object,$URL,$temp_zipfile,$temp_dir){
     
-    
+    # https://github.com/masteralice3104/aviutl_Plugin_Update_Checker/issues/3
+    # ありがとうございます
+        
     # アップデートがあるときは実行ファイルをtempに保存
-    Invoke-WebRequest -Uri (DLURLGet -URL $plugin_object.releases) -OutFile $temp_zipfile
+    Invoke-WebRequest -Uri (DLURLGet -URL $URL) -OutFile $temp_zipfile
 
     # zipを解凍
     Expand-Archive -Path $temp_zipfile -DestinationPath $temp_dir
@@ -162,22 +164,23 @@ foreach ($plugin_object in $JsonContent.plugin) {
     }
 
     
-    # latest読めばいいよね！
+    # https://github.com/masteralice3104/aviutl_Plugin_Update_Checker/issues/3
+    # ありがとうございます
     $DLpageURL = ""
     $Latest_tag_name = ""
-    if($plugin_object.type -eq "releases"){
+    if($plugin_object.type -eq "tags"){
+        $Latest_tag_list = TagGet2 -URL $plugin_object.tags
+        $Latest_tag_name =$Latest_tag_list[1]
+        $DLpageURL = Tags_URL -TagsPageURL $plugin_object.tags
+    }else{
         $Latest_tag_name = TagGet -URL $plugin_object.releases
         $DLpageURL = $plugin_object.releases
-    }else{
-        if($plugin_object.type -eq "tags"){
-            $Latest_tag_list = TagGet2 -URL $plugin_object.tags
-            $Latest_tag_name =$Latest_tag_list[1]
-            $DLpageURL = Tags_URL -TagsPageURL $plugin_object.tags
-        }else{
-            $Latest_tag_name = TagGet -URL $plugin_object.releases
-            $DLpageURL = $plugin_object.releases
-        }
     }
+
+
+
+
+
 
     # tag_nameを比較する
     if ($Latest_tag_name -eq $plugin_object.tag_name){
