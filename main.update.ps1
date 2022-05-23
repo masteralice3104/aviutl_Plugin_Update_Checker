@@ -38,7 +38,7 @@ function TagGet($URL)
 { 
     
 
-    $Obj = Invoke-Webrequest $URL
+    $Obj = Invoke-Webrequest -Uri $URL
     
     foreach($Link in $Obj.Links){
         if($Link.class -eq "Link--muted" ){
@@ -56,7 +56,7 @@ function TagGet($URL)
 # 一番上のhttps://github.com/～/～/releases/tag/タグ名
 # ページURLを検索する関数
 function Tags_URL($TagsPageURL){
-    $Obj = Invoke-Webrequest $TagsPageURL
+    $Obj = Invoke-Webrequest -Uri $TagsPageURL
     
     # outerText           : r24
     # tagName             : A
@@ -97,7 +97,7 @@ function TagGet2($URL){
 # なおSource codeは排除する
 function DLURLGet($URL){
     
-    $Obj = Invoke-Webrequest $URL
+    $Obj = Invoke-Webrequest -Uri $URL
     
     foreach($Link in $Obj.Links){
         if($Link.rel -eq "nofollow" ){
