@@ -175,10 +175,10 @@ foreach ($plugin_object in $JsonContent.plugin) {
     # URLを作る
     
     # tags
-    $URL_tags = $JsonContent.link + "/tags"
+    $URL_tags = $plugin_object.link + "/tags"
 
     # releases/latest
-    $URL_latest = $JsonContent.link + "/releases/latest"
+    $URL_latest = $plugin_object.link + "/releases/latest"
 
 
     
