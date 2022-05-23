@@ -1,4 +1,11 @@
-﻿# アセンブリ
+﻿# ver
+$ver = "0.0.8"
+
+# タイトル
+Write-Output ("Plugin Update Checker ver" + $ver)
+
+
+# アセンブリ
 Add-Type -Assembly System.Windows.Forms
 Add-Type -AssemblyName Microsoft.VisualBasic
 
@@ -119,7 +126,6 @@ function Download($plugin_object,$URL,$temp_zipfile,$temp_dir){
         Copy-Item -Path $copy_moto -Destination $copy_saki -Force -Recurse
     }
 }
-
 
 
 # JSONを読み込む

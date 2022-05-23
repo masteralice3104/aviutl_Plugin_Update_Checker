@@ -1,5 +1,6 @@
 @echo off
 chcp 65001
+
 pushd %0\..
 
 if exist main.update.ps1 (if exist main.ps1 del main.ps1)

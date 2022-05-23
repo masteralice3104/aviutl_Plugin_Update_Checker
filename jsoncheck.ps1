@@ -10,6 +10,9 @@ Add-Type -Assembly System.Windows.Forms
 # バージョン
 $Jsonver = 3
 
+# タイトル
+Write-Output ("Plugin Update Checker ver" + $Jsonver)
+
 # check
 $check_json_path = "./check.json"
 $check_json_bak_path = $check_json_path + ".bak"
