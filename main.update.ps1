@@ -157,15 +157,12 @@ foreach ($plugin_object in $JsonContent.plugin) {
     # latest読めばいいよね！
     $DLpageURL = ""
     $Latest_tag_name = ""
-    if($plugin_object.type){
-        if($plugin_object.type -eq "releases"){
-            $Latest_tag_name = TagGet -URL $plugin_object.releases
-            $DLpageURL = $plugin_object.releases
-        }
-        if($plugin_object.type -eq "tags"){
-            $Latest_tag_name = TagGet2 -URL $plugin_object.tags
-            $DLpageURL =Tags_URL -TagsPageURL $plugin_object.tags
-        }
+    if($plugin_object.type -eq "releases"){
+        $Latest_tag_name = TagGet -URL $plugin_object.releases
+        $DLpageURL = $plugin_object.releases
+    }elseif($plugin_object.type -eq "tags"){
+        $Latest_tag_name = TagGet2 -URL $plugin_object.tags
+        $DLpageURL =Tags_URL -TagsPageURL $plugin_object.tags
     }else{
         $Latest_tag_name = TagGet -URL $plugin_object.releases
         $DLpageURL = $plugin_object.releases

@@ -21,7 +21,7 @@
                        "copy_file":  [
                                          ".\\aviutl_Plugin_Update_Checker\\*"
                                      ],
-                        "type":"releases"
+                        "type":"tags"
                    }
                ]
 }
