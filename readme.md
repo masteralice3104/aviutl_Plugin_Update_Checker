@@ -29,6 +29,7 @@ patch.aulは**頻繁に更新していて、かつプラグインはとても素
 
 ## 注意事項
 メイン機能はmain.ps1に集約されていますが、直接powershellなどで開かないようにしてください
+
 アップデート処理や警告処理などが正常に走らず、最悪の場合プログラム自体が起動しなくなることがあります
 
 
@@ -46,15 +47,15 @@ patch.aulは**頻繁に更新していて、かつプラグインはとても素
 
 **"ver":    2**
 - ファイル形式のバージョンです
-- 今後ここのverを読む処理を入れる予定です
-- アップデートのときに問答無用で上書きしてしまいますのでその対策に使う予定です
+- ここのverがチェックされます
+- 該当しないverのjsonは使わないようにしています
 
 **"end_aviutl":  true**
 - 終了時にAviutlを起動する設定です
 - trueで起動、falseで起動しない設定になります
 
 
-**"aviutl_path":  "..\\aviutl.exe"**
+**"aviutl_path":  "..\\\\aviutl.exe"**
 - "end_aviutl"で起動する際のAviutlのパスを設定します
 
 **"dialog_notview":   -1**
@@ -67,7 +68,7 @@ patch.aulは**頻繁に更新していて、かつプラグインはとても素
 - "end_aviutl": falseの時、終了時にかかるウエイトの設定です
 - 単位は秒です
 
-**"temp_dir":  ".\\temp\\"**
+**"temp_dir":  ".\\\\temp\\\\"**
 - テンポラリフォルダのパスです
 - このフォルダは自動生成・削除されるためこのパスに該当するフォルダ・ファイルは作成しないでください
 
@@ -81,12 +82,12 @@ patch.aulは**頻繁に更新していて、かつプラグインはとても素
 デフォルトのcheck.jsonを簡略化したものは以下のとおりです
 
     {
-        "ver":3,
+        "ver":4,
         "plugin":  [
                     {
                         "name":  "patch.aul",
                         "use":  true,
-                        "releases":  "https://github.com/ePi5131/patch.aul/releases/latest",
+                        "link":  "https://github.com/ePi5131/patch.aul",
                         "tag_name":  null,
                         "update_block":  false,
                         "copy_folder":  "..\\",
@@ -95,8 +96,7 @@ patch.aulは**頻繁に更新していて、かつプラグインはとても素
                     {
                         "name":  "Plugin_Update_Checker",
                         "use":  true,
-                        "tags":"https://github.com/masteralice3104/aviutl_Plugin_Update_Checker/tags",
-                        "releases":  "https://github.com/masteralice3104/aviutl_Plugin_Update_Checker/releases/latest",
+                        "link":"https://github.com/masteralice3104/aviutl_Plugin_Update_Checker",
                         "tag_name":  null,
                         "update_block":  false,
                         "copy_folder":  "..\\",
@@ -111,10 +111,10 @@ patch.aulは**頻繁に更新していて、かつプラグインはとても素
 
 
 
-**"ver":    1**
+**"ver":    4**
 - ファイル形式のバージョンです
-- 今後ここのverを読む処理を入れる予定です
-- アップデートのときに問答無用で上書きしてしまいますのでその対策に使う予定です
+- ここのverがチェックされます
+- 該当しないverのjsonは使わないようにしています
 
 **"plugin":**
 - プラグインに関する配列型です
@@ -131,25 +131,16 @@ patch.aulは**頻繁に更新していて、かつプラグインはとても素
 
 **"name":  "patch.aul"**
 - 表示名です
+- 様々な表示の際に使われます
+- 読みやすい名前にするもよし、プロジェクトページからコピペしてくるのもよしです
 
 **"use":   true**
 - 使っているというフラグです
 - trueでなければ更新のチェックすらされません
 
-
-**"tags":"https://github.com/masteralice3104/aviutl_Plugin_Update_Checker/tags"**
-- tagsのURLです
-- 必須ではありません
-- "type":"tags"を指定した際は必ず"tags"にURLを記載してください
-    - "https://github.com/～～～～/～～～～/tags"の形式であれば読み込みに行けます
-    - 指定したtagsページの一番上に表示されるバージョンを見に行きます
-
-
-**"releases":  "https://github.com/ePi5131/patch.aul/releases/latest"**
-- releasesのURLです
-    - "https://github.com/～～～～/～～～～/releases/latest"の形式であれば読み込みに行けます
-- apiのレート制限にひっかかるため、apiではなくHTMLを読みに行くようにしました
-- ~~～～/tag/＊＊＊＊で終わるURLでも読めるはずですがアップデートされないのでやめましょう~~
+**"link":  "https://github.com/masteralice3104/aviutl_Plugin_Update_Checker"**
+- 更新を確認するべきプラグインのGithubのURLです
+- 最後に"/"、"/tags"、"/releases/latest"などを入れないでください
 
 **"tag_name":  "r20"**
 - タグ名です
@@ -175,13 +166,23 @@ patch.aulは**頻繁に更新していて、かつプラグインはとても素
 - "copy_folder"で指定された先にコピーされます
 - 2つ以上のファイルを指定する際には[]で配列にするのを忘れないでください
     - ファイルが1つだけだと、起動時にカッコを取られる編集をされてしまいます(動作には支障ありません)
+- ".\\\\aviutl_Plugin_Update_Checker\\\\*"みたいにするとフォルダごとコピーできます
+    - フォルダごとコピーする機能は以前不具合が多発していたので自己責任において使用してください
 
 **"type":   "releases"**
 - 更新確認の際にどこを見に行くかを指定できます
 - 必須ではありません
     - releases  : デフォルト動作、releases/latestを見に行きます
     - tags      : tagsページの一番上に表示されるバージョンを見に行きます
-        - "type":"tags"を指定した際は必ず"tags"にURLを記載してください
+
+
+
+### 廃止されたもの
+**"tags":"https://github.com/masteralice3104/aviutl_Plugin_Update_Checker/tags"**
+- json ver 4で廃止されました
+
+**"releases":  "https://github.com/ePi5131/patch.aul/releases/latest"**
+- json ver 4で廃止されました
 
 
 ## その他
