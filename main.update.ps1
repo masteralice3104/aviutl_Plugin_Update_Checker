@@ -71,8 +71,11 @@ function TagGet2($URL){
         return $null
     }
     
-    $Tag = [regex]::Matches($releaseURL,"tag/[A-Za-z0-9._/@{}]*")
-    return [Microsoft.VisualBasic.Strings]::Right($Tag[0],$Tag[0].Length-4)
+    $Tag = [regex]::Matches($releaseURL,"tag/[A-Za-z0-9._/]*")
+
+
+    $Tagreturn = [Microsoft.VisualBasic.Strings]::Right($Tag,$Tag.Length-4)
+    return $Tagreturn 
 
 }
 
@@ -160,8 +163,9 @@ foreach ($plugin_object in $JsonContent.plugin) {
         $Latest_tag_name = TagGet -URL $plugin_object.releases
         $DLpageURL = $plugin_object.releases
     }elseif($plugin_object.type -eq "tags"){
-        $Latest_tag_name = TagGet2 -URL $plugin_object.tags
-        $DLpageURL =DLURLGet -TagsPageURL $plugin_object.tags
+        $Latest_tag_list = TagGet2 -URL $plugin_object.tags
+        $Latest_tag_name =$Latest_tag_list[1]
+        $DLpageURL = Tags_URL -TagsPageURL $plugin_object.tags
     }else{
         $Latest_tag_name = TagGet -URL $plugin_object.releases
         $DLpageURL = $plugin_object.releases
