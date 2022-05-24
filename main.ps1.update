@@ -84,7 +84,7 @@ function TagGet2($URL){
         return $null
     }
     
-    $Tag = [regex]::Matches($releaseURL,"tag/[A-Za-z0-9._/]*")
+    $Tag = [regex]::Matches($releaseURL,"tag/[A-Za-z0-9._/-]*")
 
 
     $Tagreturn = [Microsoft.VisualBasic.Strings]::Right($Tag,$Tag.Length-4)
