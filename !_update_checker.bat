@@ -3,10 +3,19 @@ chcp 65001
 
 pushd %0\..
 
-if exist main.update.ps1 (if exist main.ps1 del main.ps1)
-if exist main.update.ps1 ren main.update.ps1 main.ps1
+if exist main.ps1.update (if exist main.ps1 del main.ps1)
+if exist main.ps1.update ren main.ps1.update main.ps1
+
+if not exist jsoncheck.ps1 goto er
+if not exist main.ps1 goto er
 
 if exist setting.json.bak powershell -ExecutionPolicy Unrestricted ./jsoncheck.ps1
+if exist check.json.bak powershell -ExecutionPolicy Unrestricted ./jsoncheck.ps1
+
+
+
+
+
 
 
 if exist setting.json (
@@ -15,6 +24,7 @@ if exist setting.json (
 ) else (
     goto er
 )
+
 
 goto end
 :er
