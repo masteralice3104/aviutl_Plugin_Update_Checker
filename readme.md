@@ -40,6 +40,9 @@ patch.aulは**頻繁に更新していて、かつプラグインはとても素
 
 アップデート処理や警告処理などが正常に走らず、最悪の場合プログラム自体が起動しなくなることがあります
 
+## バグ報告
+[issues](https://github.com/masteralice3104/aviutl_Plugin_Update_Checker/issues)立ててください
+
 
 ## このソフト自体の設定の仕方：setting.jsonの仕様
 
