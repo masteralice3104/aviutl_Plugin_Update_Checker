@@ -212,6 +212,10 @@ foreach ($plugin_object in $JsonContent.plugin) {
     # 例外処理
     # 自身をアップデートする前にかならずjsonのバックアップをとる
     if ($URL_latest -like $this_app){
+        # タグ名を更新
+        $plugin_object.tag_name = $Latest_tag_name
+
+        # 保存
         ConvertTo-Json -InputObject $JsonContent -Depth 32 | Out-File "./check.json.bak" -Encoding utf8
         ConvertTo-Json -InputObject $SettingJson -Depth 32 | Out-File "./setting.json.bak" -Encoding utf8
     }
