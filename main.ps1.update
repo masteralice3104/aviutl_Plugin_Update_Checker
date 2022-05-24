@@ -1,5 +1,5 @@
 ﻿# ver
-$ver = "0.0.9c"
+$ver = "0.0.10a"
 
 # タイトル
 Write-Output ("Plugin Update Checker ver" + $ver)
