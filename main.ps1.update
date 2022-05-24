@@ -116,11 +116,24 @@ function Download($plugin_object,$URL,$temp_zipfile,$temp_dir){
     # https://github.com/masteralice3104/aviutl_Plugin_Update_Checker/issues/3
     # ありがとうございます
 
-    # アップデートがあるときは実行ファイルをtempに保存
-    Invoke-WebRequest -Uri (DLURLGet -URL $URL) -OutFile $temp_zipfile
+    if ($plugin_object.format -eq "direct"){
+        # direct
+        # 作業用tempフォルダを作る
+        Temp_delete
+        New-Item $temp_dir -ItemType Directory -Force
 
-    # zipを解凍
-    Expand-Archive -Path $temp_zipfile -DestinationPath $temp_dir
+        # アップデートがあるときは実行ファイルをtempに保存
+        Invoke-WebRequest -Uri (DLURLGet -URL $URL) -OutFile ($temp_dir + $plugin_object.copy_file[0])
+        
+    }else{
+        #こっちがデフォルト
+        # アップデートがあるときは実行ファイルをtempに保存
+        Invoke-WebRequest -Uri (DLURLGet -URL $URL) -OutFile $temp_zipfile
+
+        # zipを解凍
+        Expand-Archive -Path $temp_zipfile -DestinationPath $temp_dir
+    }
+
 
     # tempフォルダからコピーする
     foreach ($file in $plugin_object.copy_file){
