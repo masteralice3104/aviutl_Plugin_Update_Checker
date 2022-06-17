@@ -1,13 +1,19 @@
 ﻿# ver
-$ver = "0.0.10a"
+$ver = "0.1.0a"
 
 # タイトル
-Write-Output ("Plugin Update Checker ver" + $ver)
+Write-Output ("///////////////////////////////////////////////////")
+Write-Output ("    Aviutl Plugin Update Checker ver" + $ver)
+Write-Output ("///////////////////////////////////////////////////")
+
 
 
 # アセンブリ
 Add-Type -Assembly System.Windows.Forms
 Add-Type -AssemblyName Microsoft.VisualBasic
+
+# 設定
+$ProgressPreference = 'SilentlyContinue' # これ入れないとDLが遅くなる
 
 # テンポラリフォルダとかを削除する関数
 function Temp_delete(){
@@ -115,6 +121,8 @@ function Download($plugin_object,$URL,$temp_zipfile,$temp_dir){
     
     # https://github.com/masteralice3104/aviutl_Plugin_Update_Checker/issues/3
     # ありがとうございます
+
+    Write-Output "ダウンロード……"
 
     if ($plugin_object.format -eq "direct"){
         # direct
