@@ -40,13 +40,15 @@
 
 
 ## ほかの機能
-実はGithubのRelease/latestやTagsで公開されているプラグインであれば~~何でも~~ものによってはいけます([wiki](https://github.com/masteralice3104/aviutl_Plugin_Update_Checker/wiki)参照)
+- 実はGithubのRelease/latestやTagsで公開されているプラグインであれば~~何でも~~ものによってはいけます([wiki](https://github.com/masteralice3104/aviutl_Plugin_Update_Checker/wiki)参照)
 
 ## 注意事項
-メイン機能はmain.ps1に集約されていますが、直接powershellなどで開かないようにしてください
-デフォルト設定でダブルクリックしてもnotepad.exeで開かさるだけだと思います
+- メイン機能はmain.ps1に集約されていますが、直接powershellなどで開かないようにしてください
+- デフォルト設定でダブルクリックしてもnotepad.exeで開かさるだけだと思います
 
-アップデート処理や警告処理などが正常に走らず、最悪の場合プログラム自体が起動しなくなることがあります
+- アップデート処理や警告処理などが正常に走らず、最悪の場合プログラム自体が起動しなくなることがあります
+
+- コンソール画面に"Run only scripts that you trust.～～～"と表示された場合は、main.ps1及びjsoncheck.ps1のファイルのブロック(プロパティより変更できます)を解除してください
 
 ## 要望やバグ報告
 [issues](https://github.com/masteralice3104/aviutl_Plugin_Update_Checker/issues)立ててください
