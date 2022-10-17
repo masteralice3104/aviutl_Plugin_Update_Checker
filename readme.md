@@ -22,6 +22,8 @@
 1. !_update_checker.batを開く
 
 これだけでpatch.aulのアップデートがされます！
+※ エラーが出る場合は、管理者権限のcmdなどで「PowerShell Set-ExecutionPolicy Bypass」を実行してください。
+
 
 ## 導入する利点
 - ものぐさな人でもプラグインのアップデートについていける
